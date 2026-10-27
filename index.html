@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tanakrit Hansuranant · Inventions</title>
+<meta name="description" content="22 tools, products and accelerators built by Tanakrit Hansuranant, from Excel and VBA to GenAI.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tanakrit Hansuranant · Inventions">
+<meta property="og:description" content="22 tools, products and accelerators built by Tanakrit Hansuranant, from Excel and VBA to GenAI.">
+<meta property="og:url" content="https://cortex5.github.io/">
+<meta property="og:image" content="https://cortex5.github.io/og-image.jpg">
+<meta property="og:image:width" content="1424">
+<meta property="og:image:height" content="752">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cortex5.github.io/og-image.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+/* tokens: brand-os/themes/own.json */
+:root {
+  --bg: #1E1F22;
+  --surface: #26272B;
+  --raised: #2E3035;
+  --fg: #F1EFEA;
+  --muted: #9C9A94;
+  --line: rgba(255,255,255,.11);
+  --accent: #C9A24D;
+  --accent-ink: #C9A24D;
+  --on-accent: #1E1F22;
+  --accent-wash: rgba(201,162,77,.14);
+  --ok: #3DBE8B;
+  --warn: #E8873A;
+  --err: #EF6A6A;
+  --info: #5B9BE6;
+  --font-display: "Outfit", "Noto Sans Thai", system-ui, sans-serif;
+  --font-body: "Outfit", "Noto Sans Thai", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-pill: 999px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --dur-fast: 0.15s;
+  --dur-panel: 0.25s;
+  --ease-panel: cubic-bezier(.32,1,.23,1);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+  --bg: #FBFBFE;
+  --surface: #FFFFFF;
+  --raised: #F3F3F7;
+  --fg: #1E1F22;
+  --muted: #6A6862;
+  --line: rgba(30,31,34,.12);
+  --accent: #C9A24D;
+  --accent-ink: #7C5F17;
+  --on-accent: #1E1F22;
+  --accent-wash: rgba(201,162,77,.2);
+  --ok: #1F7A55;
+  --warn: #A8530F;
+  --err: #B42318;
+  --info: #1D5FA8;
+  color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #FBFBFE;
+  --surface: #FFFFFF;
+  --raised: #F3F3F7;
+  --fg: #1E1F22;
+  --muted: #6A6862;
+  --line: rgba(30,31,34,.12);
+  --accent: #C9A24D;
+  --accent-ink: #7C5F17;
+  --on-accent: #1E1F22;
+  --accent-wash: rgba(201,162,77,.2);
+  --ok: #1F7A55;
+  --warn: #A8530F;
+  --err: #B42318;
+  --info: #1D5FA8;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 15px/1.5 var(--font-body); }
+.label { font: 500 11px/1 var(--font-body); letter-spacing: .1em; text-transform: uppercase; color: var(--accent-ink); margin: 0 0 var(--space-4); }
+.count { color: var(--muted); margin-left: var(--space-2); font-family: var(--font-mono); letter-spacing: 0; }
+.shell { display: grid; grid-template-columns: 320px minmax(0, 1fr); max-width: 1440px; margin: 0 auto; }
+/* sidebar */
+aside { position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: var(--space-6) var(--space-5); border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: var(--space-5); }
+aside h1 { margin: 0; font: 500 11px/1 var(--font-body); letter-spacing: .1em; text-transform: uppercase; color: var(--accent-ink); }
+.line { margin: 0; font: 300 24px/1.2 var(--font-display); }
+.big { font: 200 56px/1 var(--font-display); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.t { margin-top: var(--space-2); font: 500 11px/1 var(--font-body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.sub { display: flex; gap: var(--space-5); margin-top: var(--space-4); }
+.sub .v { font: 300 20px/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.chips { display: flex; flex-direction: column; gap: var(--space-1); }
+.chip { display: flex; justify-content: space-between; width: 100%; font: 400 14px/1 var(--font-body); color: var(--fg); background: transparent; border: 1px solid transparent; border-radius: var(--r-md); padding: var(--space-2) var(--space-3); cursor: pointer; text-align: left; transition: background var(--dur-fast), border-color var(--dur-fast); }
+.chip span { color: var(--muted); font-family: var(--font-mono); font-size: 12px; }
+.chip:hover { background: var(--raised); }
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+.chip[aria-pressed="true"] span { color: var(--on-accent); }
+.chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* main */
+main { padding: var(--space-6) var(--space-6) var(--space-7); min-width: 0; }
+.feats { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); margin-bottom: var(--space-7); }
+.feat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--space-5); }
+.feat .idx { font: 200 32px/1 var(--font-display); color: var(--accent-ink); font-variant-numeric: tabular-nums; }
+.feat h3 { margin: var(--space-3) 0 var(--space-1); font: 500 18px/1.25 var(--font-display); }
+.feat p { margin: 0 0 var(--space-4); color: var(--muted); }
+.feat .cap { margin: var(--space-3) 0 0; font: 400 12px/1.5 var(--font-mono); color: var(--muted); }
+.feat .cap b { color: var(--fg); font-weight: 500; }
+.bar { display: flex; gap: 2px; height: 10px; }
+.bar i { display: block; min-width: 6px; border-radius: var(--r-sm); }
+.bar .p { background: var(--ok); } .bar .f { background: var(--err); } .bar .g { background: var(--muted); }
+.flow { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
+.flow li { background: var(--raised); border: 1px solid var(--line); border-radius: var(--r-pill); padding: var(--space-1) var(--space-3); font-size: 13px; }
+.flow li + li::before { content: "→"; color: var(--accent-ink); margin-right: var(--space-2); }
+.stack { margin-bottom: var(--space-6); }
+.srows { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-2) var(--space-5); }
+.srows li { display: grid; grid-template-columns: 110px 1fr 28px; align-items: center; gap: var(--space-3); font-size: 13px; }
+.sb { height: 6px; background: var(--raised); border-radius: var(--r-pill); overflow: hidden; }
+.sb i { display: block; height: 100%; background: var(--accent); border-radius: var(--r-pill); }
+.sc { font-family: var(--font-mono); color: var(--muted); text-align: right; font-size: 12px; }
+@media (max-width: 1000px) { .srows { grid-template-columns: 1fr 1fr; } }
+.tl { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-4); margin-bottom: var(--space-7); }
+.yr { border-top: 2px solid var(--accent); padding-top: var(--space-3); }
+.yr h3 { margin: 0 0 var(--space-3); font: 300 22px/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.yr ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-3); }
+.yr .nm { display: block; font-size: 13px; }
+.yr .dt { display: block; font: 400 11px/1.4 var(--font-mono); color: var(--muted); }
+@media (max-width: 1000px) { .tl { grid-template-columns: repeat(2, 1fr); } }
+.jump { display: flex; gap: var(--space-2); }
+.jump a { font-size: 13px; color: var(--fg); text-decoration: none; border: 1px solid var(--line); border-radius: var(--r-pill); padding: var(--space-1) var(--space-3); }
+.jump a:hover { border-color: var(--accent); color: var(--accent-ink); }
+.jump a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+section[id] { scroll-margin-top: var(--space-5); }
+.yr li a { display: block; color: var(--fg); text-decoration: none; padding: var(--space-1) 0; }
+.yr li a:hover .nm { color: var(--accent-ink); }
+.when { font: 400 11px/1 var(--font-mono); color: var(--accent-ink); margin-bottom: var(--space-2); }
+.rail { position: sticky; top: 0; z-index: 2; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--space-2); background: var(--bg); padding: var(--space-3) 0; margin-bottom: var(--space-5); border-bottom: 1px solid var(--line); }
+.yb { background: none; border: 0; border-top: 2px solid var(--line); color: var(--muted); font: inherit; text-align: left; padding: var(--space-2) 0 0; cursor: pointer; transition: color var(--dur-fast), border-color var(--dur-fast); }
+.yb:hover { color: var(--fg); }
+.yb[aria-pressed="true"] { color: var(--fg); border-top-color: var(--accent); }
+.yb .y { display: block; font: 300 20px/1.1 var(--font-display); }
+.yb .c { display: block; font: 400 11px/1.6 var(--font-mono); }
+.yb:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.asset[hidden] { display: none; }
+@media (max-width: 1000px) { .rail { position: static; grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.updated { margin: auto 0 0; font: 400 12px/1.4 var(--font-mono); color: var(--muted); }
+.grp { margin-bottom: var(--space-6); }
+.grp[hidden], .asset[hidden] { display: none; }
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+.asset { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--space-4) var(--space-5); display: flex; flex-direction: column; transition: border-color var(--dur-fast); }
+.asset:hover { border-color: var(--accent); }
+.asset h3 { margin: 0 0 var(--space-1); font: 500 18px/1.25 var(--font-display); }
+.asset p { margin: 0 0 var(--space-4); color: var(--muted); }
+dl { margin: auto 0 0; padding-top: var(--space-3); border-top: 1px solid var(--line); display: grid; grid-template-columns: auto 1fr; gap: var(--space-1) var(--space-3); font-size: 13px; }
+dt { color: var(--muted); font: 500 11px/1.9 var(--font-body); letter-spacing: .1em; text-transform: uppercase; }
+dd { margin: 0; font-family: var(--font-mono); font-size: 12px; line-height: 1.6; }
+@media (min-width: 1500px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 1000px) {
+  .shell { grid-template-columns: 1fr; }
+  aside { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+  .chips { flex-direction: row; flex-wrap: wrap; }
+  .chip { width: auto; gap: var(--space-2); border-color: var(--line); border-radius: var(--r-pill); }
+  main { padding: var(--space-5) var(--space-4); }
+  .feats, .cards { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .chip, .asset { transition: none; } }
+</style>
+</head>
+<body>
+<div class="shell">
+<aside>
+  <h1>Tanakrit Hansuranant</h1>
+  <p class="line">I make complex systems work, then build the tools that make them easier to deliver.</p>
+  <div>
+    <div class="big">22</div><div class="t">Assets built</div>
+    <div class="sub"><div><div class="v">10+ years</div><div class="t">Span</div></div><div><div class="v">7</div><div class="t">Languages</div></div></div>
+  </div>
+  <nav class="jump" aria-label="Sections"><a href="#stack">Stack</a><a href="#timeline">Timeline</a><a href="#register">Register</a></nav>
+  <div><h2 class="label">Filter by technology</h2><div class="chips" role="group" aria-label="Filter by technology"><button type="button" class="chip" data-f="all" aria-pressed="true">All <span>22</span></button><button type="button" class="chip" data-f="ai" aria-pressed="false">AI <span>3</span></button><button type="button" class="chip" data-f="go" aria-pressed="false">Go <span>4</span></button><button type="button" class="chip" data-f="xl" aria-pressed="false">Excel / VBA <span>6</span></button><button type="button" class="chip" data-f="ps" aria-pressed="false">PowerShell <span>4</span></button><button type="button" class="chip" data-f="py" aria-pressed="false">Python <span>2</span></button><button type="button" class="chip" data-f="web" aria-pressed="false">Web <span>7</span></button></div></div>
+<p class="updated">Last updated <time datetime="2026-10-26">26 Oct 2026</time></p>
+</aside>
+<main>
+<section class="stack" id="stack" aria-labelledby="sk"><h2 id="sk" class="label">Stack across all assets</h2><ul class="srows"><li><span class="sn">Excel</span><span class="sb"><i style="width:100%"></i></span><span class="sc">6</span></li>
+<li><span class="sn">Go</span><span class="sb"><i style="width:67%"></i></span><span class="sc">4</span></li>
+<li><span class="sn">JavaScript</span><span class="sb"><i style="width:67%"></i></span><span class="sc">4</span></li>
+<li><span class="sn">PowerShell</span><span class="sb"><i style="width:67%"></i></span><span class="sc">4</span></li>
+<li><span class="sn">SQL</span><span class="sb"><i style="width:67%"></i></span><span class="sc">4</span></li>
+<li><span class="sn">VBA</span><span class="sb"><i style="width:50%"></i></span><span class="sc">3</span></li>
+<li><span class="sn">AWS Bedrock</span><span class="sb"><i style="width:50%"></i></span><span class="sc">3</span></li>
+<li><span class="sn">Python</span><span class="sb"><i style="width:33%"></i></span><span class="sc">2</span></li>
+<li><span class="sn">C#</span><span class="sb"><i style="width:17%"></i></span><span class="sc">1</span></li>
+<li><span class="sn">React</span><span class="sb"><i style="width:17%"></i></span><span class="sc">1</span></li>
+<li><span class="sn">Playwright</span><span class="sb"><i style="width:17%"></i></span><span class="sc">1</span></li>
+</ul></section>
+<nav class="rail" id="timeline" aria-label="Filter by year"><button type="button" class="yb" data-y="all" aria-pressed="true"><span class="y">All</span><span class="c">22</span></button><button type="button" class="yb" data-y="0" aria-pressed="false"><span class="y">2010s</span><span class="c">1</span></button><button type="button" class="yb" data-y="1" aria-pressed="false"><span class="y">Early 2020s</span><span class="c">2</span></button><button type="button" class="yb" data-y="2" aria-pressed="false"><span class="y">Mid 2020s</span><span class="c">12</span></button><button type="button" class="yb" data-y="3" aria-pressed="false"><span class="y">Latest</span><span class="c">7</span></button></nav>
+<div id="register"><section aria-labelledby="g0" class="grp"><h2 id="g0" class="label">Products <span class="count">06</span></h2><div class="cards">
+<article class="asset" id="a-powerpoint-add-in" data-y="3" data-f=""><span class="when">Latest</span><h3>PowerPoint add-in</h3><p>Native PowerPoint add-in: presentation manipulation, auditing, business-workflow tools and a credential-to-slide flow. Backed by an automated scenario harness.</p><dl><dt>Stack</dt><dd>C# · .NET Framework 4.8 · PowerPoint COM</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+<article class="asset" id="a-iris" data-y="3" data-f="go ai"><span class="when">Latest</span><h3>Iris</h3><p>Windows desktop client for Claude via Amazon Bedrock. Single binary with embedded web UI, local workspace persistence, terminal support and a multi-path /diverge workflow.</p><dl><dt>Stack</dt><dd>Go · AWS Bedrock · SSE / WebSocket</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+<article class="asset" id="a-credential-page-extractor-quick-add" data-y="2" data-f="ps go"><span class="when">Mid 2020s</span><h3>Credential Page Extractor → Quick Add</h3><p>Extracts credentials from web pages into structured CSV and editable PowerPoint. Evolved from scripts to a browse-select-extract app to one-link Quick Add inside the PowerPoint add-in.</p><dl><dt>Stack</dt><dd>PowerShell · Go · Browser automation</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+<article class="asset" id="a-agentic-to-do-strategy-lab" data-y="3" data-f="web ai"><span class="when">Latest</span><h3>Agentic To-Do &amp; Strategy Lab</h3><p>Task manager with priorities, due-date history, urgency, push notifications and an AI task agent, plus a Strategy Lab from observation to roadmap.</p><dl><dt>Stack</dt><dd>React 18 · Vite · Express · MongoDB · AWS Bedrock · Vercel</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+<article class="asset" id="a-excel-bedrock-chat" data-y="3" data-f="xl ai"><span class="when">Latest</span><h3>Excel ⇄ Bedrock chat</h3><p>Excel sheet that works as a chat window to Amazon Bedrock. Signs the AWS requests inside the Office Script, so it needs only an IAM key: no CLI, SDK, proxy or install. Confirmed working against a live account.</p><dl><dt>Stack</dt><dd>Excel · Office Scripts · AWS Bedrock · SigV4</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+<article class="asset" id="a-salvia" data-y="3" data-f="py web"><span class="when">Latest</span><h3>Salvia</h3><p>Personal finance ingestion and reconciliation. Pulls encrypted statement PDFs and payment-slip photos from personal sources, parses them into SQLite, and serves a web UI and a terminal UI. 227 tests green at last count.</p><dl><dt>Stack</dt><dd>Python · FastAPI · Textual · SQLite</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+</div></section>
+<section aria-labelledby="g1" class="grp"><h2 id="g1" class="label">Industrial analytics <span class="count">01</span></h2><div class="cards">
+<article class="asset" id="a-process-log-analyzer" data-y="0" data-f="xl"><span class="when">2010s</span><h3>Process Log Analyzer</h3><p>Macro workbook that batch-ingests thousands of per-run process logs from multiple machine vendors on a production line into one analysis table. Flags every run against an engineering standard and charts per-run and per-campaign results. VBA tuned for speed on a single-threaded macro runtime.</p><dl><dt>Stack</dt><dd>Excel · VBA</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+</div></section>
+<section aria-labelledby="g2" class="grp"><h2 id="g2" class="label">Workflow and data tools <span class="count">11</span></h2><div class="cards">
+<article class="asset" id="a-operations-toolkit" data-y="2" data-f="web"><span class="when">Mid 2020s</span><h3>Operations toolkit</h3><p>Browser toolkit for log analysis, data visualisation and API test workflows, with multi-step playbooks using variables and assertions.</p><dl><dt>Stack</dt><dd>JavaScript · single-file HTML</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+<article class="asset" id="a-evidence-capture-extension" data-y="2" data-f="web"><span class="when">Mid 2020s</span><h3>Evidence-capture extension</h3><p>Browser extension that captures UI structure as Markdown, JSON or ASCII, and pairs form state with failing requests as defect evidence.</p><dl><dt>Stack</dt><dd>Chrome / Edge extension · JavaScript</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+<article class="asset" id="a-end-to-end-test-framework" data-y="2" data-f="web"><span class="when">Mid 2020s</span><h3>End-to-end test framework</h3><p>Browser test suite with a custom offline HTML reporter: status filter, expandable errors, failure media, dark mode.</p><dl><dt>Stack</dt><dd>Playwright · JavaScript</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+<article class="asset" id="a-workflow-builder" data-y="3" data-f=""><span class="when">Latest</span><h3>Workflow builder</h3><p>Orchestration prototype for configurable multi-step workflows, with playbook storage.</p><dl><dt>Stack</dt><dd>Orchestration · SQLite</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+<article class="asset" id="a-batch-job-monitor" data-y="1" data-f="ps"><span class="when">Early 2020s</span><h3>Batch job monitor</h3><p>Configurable job-status monitor with connection retry and desktop and email notifications. Versions v0.4 to v2.5.</p><dl><dt>Stack</dt><dd>PowerShell</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+<article class="asset" id="a-mapping-and-lineage-workbooks" data-y="2" data-f="xl"><span class="when">Mid 2020s</span><h3>Mapping and lineage workbooks</h3><p>Macro workbooks for field-level mapping, source-to-target lineage and transformation analysis, plus an interface-metadata extractor.</p><dl><dt>Stack</dt><dd>Excel · VBA · SQL</dd><dt>Role</dt><dd>Developed (VBA)</dd></dl></article>
+<article class="asset" id="a-data-extractor" data-y="2" data-f="web"><span class="when">Mid 2020s</span><h3>Data extractor</h3><p>Downloads Excel source files and exports CSV. Packaged as a Windows executable.</p><dl><dt>Stack</dt><dd>HTML · desktop packaging</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+<article class="asset" id="a-sql-validation-templates" data-y="2" data-f="xl"><span class="when">Mid 2020s</span><h3>SQL validation templates</h3><p>Parameterised checks: date validity, referential integrity, nullability, numeric range, field length, uniqueness.</p><dl><dt>Stack</dt><dd>SQL · Excel</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+<article class="asset" id="a-date-logic-test-harness" data-y="2" data-f="xl"><span class="when">Mid 2020s</span><h3>Date-logic test harness</h3><p>Runs date validation logic against expected outputs over a large test dataset.</p><dl><dt>Stack</dt><dd>Excel</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+<article class="asset" id="a-resource-request-workflow" data-y="1" data-f="xl"><span class="when">Early 2020s</span><h3>Resource request workflow</h3><p>Macro workbook with required-field validation, weekly effort allocation, name and email checks, submission and post-submission change highlighting.</p><dl><dt>Stack</dt><dd>Excel · VBA</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+<article class="asset" id="a-request-tracker" data-y="3" data-f="go"><span class="when">Latest</span><h3>Request tracker</h3><p>Local tool that files an incoming request email into the next numbered working folder, saves attachments and tracks stages. Single static binary: no daemon, no auth token.</p><dl><dt>Stack</dt><dd>Go · embedded HTML UI</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+</div></section>
+<section aria-labelledby="g3" class="grp"><h2 id="g3" class="label">Utilities <span class="count">04</span></h2><div class="cards">
+<article class="asset" id="a-sqlformatter" data-y="2" data-f="ps"><span class="when">Mid 2020s</span><h3>SQLFormatter</h3><p>SQL formatter with query history and clipboard workflow.</p><dl><dt>Stack</dt><dd>PowerShell · Windows Forms</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+<article class="asset" id="a-keystrokesimulator" data-y="2" data-f="ps"><span class="when">Mid 2020s</span><h3>KeyStrokeSimulator</h3><p>Simulated typing with adjustable speed, progress and stop control.</p><dl><dt>Stack</dt><dd>PowerShell · Windows Forms</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+<article class="asset" id="a-aws-glue-extractor" data-y="2" data-f="py"><span class="when">Mid 2020s</span><h3>AWS Glue Extractor</h3><p>Exports Glue job metadata to JSON, CSV and multi-sheet Excel.</p><dl><dt>Stack</dt><dd>Python · boto3 · pandas</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+<article class="asset" id="a-lan-screen-share" data-y="2" data-f="go web"><span class="when">Mid 2020s</span><h3>LAN Screen Share</h3><p>Screen sharing with WebSocket and MQTT-over-WSS signalling.</p><dl><dt>Stack</dt><dd>Go · JavaScript</dd><dt>Role</dt><dd>Developed</dd></dl></article>
+</div></section>
+</div></main>
+</div>
+<script>
+(function () {
+  var chips = document.querySelectorAll('.chip'), years = document.querySelectorAll('.yb'), assets = document.querySelectorAll('.asset'), groups = document.querySelectorAll('.grp');
+  var tech = 'all', year = 'all';
+  function apply() {
+    assets.forEach(function (a) {
+      var okT = tech === 'all' || (' ' + a.getAttribute('data-f') + ' ').indexOf(' ' + tech + ' ') > -1;
+      var okY = year === 'all' || a.getAttribute('data-y') === year;
+      a.hidden = !(okT && okY);
+    });
+    groups.forEach(function (g) { g.hidden = !g.querySelector('.asset:not([hidden])'); });
+  }
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      tech = c.getAttribute('data-f');
+      chips.forEach(function (x) { x.setAttribute('aria-pressed', x === c ? 'true' : 'false'); });
+      apply();
+    });
+  });
+  years.forEach(function (b) {
+    b.addEventListener('click', function () {
+      year = b.getAttribute('data-y');
+      years.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      apply();
+    });
+  });
+})();
+</script>
+<script data-goatcounter="https://cortex5.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
